@@ -1,0 +1,23 @@
+.banner {
+  text-align: center;
+  background-color: rgb(209, 36, 36);
+  padding-bottom: 22px;
+  padding-top: 20px;
+  font-size: 34px;
+  color: white;
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: 600;
+  color: white;
+}
+
+h2 {
+  font-weight: 400;
+  color: white;
+}
+
+/* .row {
+  padding: 75px 350px;
+} */

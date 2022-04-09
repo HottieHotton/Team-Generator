@@ -1,0 +1,28 @@
+{
+  "name": "Team-Generator",
+  "version": "1.0.0",
+  "description": "Challenge 10",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HottieHotton/Team-Generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HottieHotton/Team-Generator/issues"
+  },
+  "homepage": "https://github.com/HottieHotton/Team-Generator#readme",
+  "devDependencies": {
+    "jest": "^27.2.2"
+  },
+  "dependencies": {
+    "inquirer": "^8.1.5"
+  }
+}
