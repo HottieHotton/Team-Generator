@@ -17,7 +17,8 @@
   ---------------
   Install the NPM packages necessary using npm i, and then run node index.js!
 
- [Front-Page](img/Front-Page.png)
+ ![Front-Page](img/Front-Page.png)
+ [Video](https://vimeo.com/697819555)
 
 
   ## Contribution
