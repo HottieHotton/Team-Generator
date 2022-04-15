@@ -1,14 +1,16 @@
+//All necessary calls
 const inquirer = require("inquirer");
 const fs = require("fs");
-const { choices } = require("yargs");
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
-const generateHtml = require("./src/htmlTemplate");
+const template = require("./src/htmlTemplate");
 
-employeeBucket = [];
+//The array that holds all the created data
+newArray = [];
 
-const managerInputFormat = [
+//Inquirer involving creating a Manager
+const managerInput = [
   {
     type: "input",
     name: "name",
@@ -31,7 +33,8 @@ const managerInputFormat = [
   },
 ];
 
-const addEmployeeInputFormat = [
+//Choices on what you want to create next
+const employeeInput = [
   {
     type: "list",
     name: "addEmployee",
@@ -39,12 +42,13 @@ const addEmployeeInputFormat = [
     choices: [
       "Yes, add Engineer",
       "Yes, add Intern",
-      "No, I do not want to add another employee",
+      "I have added everyone!",
     ],
   },
 ];
 
-const addEngineerInputFormat = [
+//Inquirer involving creating an engineer
+const engineerInput = [
   {
     type: "input",
     name: "name",
@@ -63,11 +67,12 @@ const addEngineerInputFormat = [
   {
     type: "input",
     name: "github",
-    message: "What is the employee's github username?",
+    message: "What is the employee's GitHub username?",
   },
 ];
 
-const addInternInputFormat = [
+//Inquirer involving creating an intern
+const internInput = [
   {
     type: "input",
     name: "name",
@@ -90,66 +95,59 @@ const addInternInputFormat = [
   },
 ];
 
+//Data collected to create a new Manager
 const addManager = async () => {
-  const result = await inquirer.prompt(managerInputFormat);
-  console.log(result.email);
-  const managerInstance = new Manager(
-    result.name,
-    result.id,
-    result.email,
-    result.officeNumber
+  const manager = await inquirer.prompt(managerInput);
+  const newManager = new Manager(
+    manager.name,
+    manager.id,
+    manager.email,
+    manager.officeNumber
   );
-  employeeBucket.push(managerInstance);
+  newArray.push(newManager);
   addEmployee();
 };
 
+//Function to send selected choices to correct functions
 const addEmployee = async () => {
-  const result = await inquirer
-    .prompt(addEmployeeInputFormat)
-    .then(function (result) {
-      switch (result.addEmployee) {
-        case "Yes, add Engineer":
-          addEngineer();
-          break;
-
-        case "Yes, add Intern":
-          addIntern();
-          break;
-
-        case "No, I do not want to add another employee":
-          buildPage();
-          break;
-        default:
-          console.log(result);
-          console.warn("unsupported case found");
-      }
-    });
+  const employer = await inquirer
+    .prompt(employeeInput)
+    if(employer.addEmployee === "Yes, add Engineer"){
+      addEngineer();
+    }else if(employer.addEmployee === "Yes, add Intern"){
+      addIntern();
+    }else if(employer.addEmployee === "I have added everyone!"){
+      buildPage();
+    }
 };
 
+//Data collected to create a new Engineer
 const addEngineer = async () => {
-  const result = await inquirer.prompt(addEngineerInputFormat);
-  const engineerInstance = new Engineer(
-    result.name,
-    result.id,
-    result.email,
-    result.github
+  const engineer = await inquirer.prompt(engineerInput);
+  const newEngineer = new Engineer(
+    engineer.name,
+    engineer.id,
+    engineer.email,
+    engineer.github
   );
-  employeeBucket.push(engineerInstance);
+  newArray.push(newEngineer);
   addEmployee();
 };
 
+//Data collected to create a new Intern
 const addIntern = async () => {
-  const result = await inquirer.prompt(addInternInputFormat);
-  const internInstance = new Intern(
-    result.name,
-    result.id,
-    result.email,
-    result.school
+  const intern = await inquirer.prompt(internInput);
+  const newIntern = new Intern(
+    intern.name,
+    intern.id,
+    intern.email,
+    intern.school
   );
-  employeeBucket.push(internInstance);
+  newArray.push(newIntern);
   addEmployee();
 };
 
+//Writing all data to the index file
 function writeToFile(fileName, data) {
   fs.writeFile(fileName, data, function (err) {
     console.log(data);
@@ -161,10 +159,10 @@ function writeToFile(fileName, data) {
   });
 }
 
+//Making the index.html
 const buildPage = () => {
-  console.log(employeeBucket);
-
-  writeToFile("./dist/index.html", generateHtml(employeeBucket));
+  console.log(newArray);
+  writeToFile("./dist/index.html", template(newArray));
 };
 
 addManager();

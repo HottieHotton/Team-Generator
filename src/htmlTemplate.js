@@ -1,4 +1,4 @@
-function generateHtml(employeeBucket) {
+function template(newArray) {
   const employeeHtmlArray = [];
   const htmlHeader = `
 <!DOCTYPE html>
@@ -24,19 +24,18 @@ function generateHtml(employeeBucket) {
   <div class="row row-cols-1 row-cols-md-3 g-4">
   
   `;
+  //Using the user-created data to create the necessary cards and pushing it into this template
   employeeHtmlArray.push(htmlHeader);
-  for (let i = 0; i < employeeBucket.length; i++) {
-    employeeHtmlArray.push(employeeBucket[i].getHtmlRepresentation());
+  for (let i = 0; i < newArray.length; i++) {
+    employeeHtmlArray.push(newArray[i].newCard());
   }
-
   const htmlFooter = `
   </div>
   
   </body>
   `;
-
   employeeHtmlArray.push(htmlFooter);
   return employeeHtmlArray.join("\r\n");
 }
 
-module.exports = generateHtml;
+module.exports = template;
